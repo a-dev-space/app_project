@@ -1,0 +1,168 @@
+body {
+    text-align: center;
+}
+
+h1 {
+    width: 40%;
+    margin: auto;
+    line-height: 2;
+    color: #66BFBF;
+    font-family: "Marck Script";
+    font-size: 4rem;
+    font-style: normal;
+    font-variant: normal;
+    font-weight: 700;
+}
+
+h2 {
+    font-family: "Alike";
+    font-style: normal;
+    font-variant: normal;
+    font-weight: 500;
+    line-height: 2;
+    width: 30%;
+    margin: auto;
+    color: #62BFBF;
+    font-size: 2rem;
+
+}
+
+h3 {
+    color: #11999E;
+}
+
+
+p {
+    width: 500px;
+    margin: auto;
+    font-size: 1.2rem;
+    text-align: justify;
+    line-height: 2;
+    color: #40514E;
+}
+
+hr {
+    border-width: 10px 0 0 0;
+    border-style: dotted;
+    border-color: #a7c4bc;
+    width: 50px;
+    margin: 50px auto 50px auto;
+}
+
+a {
+    font-family: "Alike";
+    font-style: normal;
+    font-variant: normal;
+    font-weight: 500;
+    font-size: 1.2rem;
+    margin: 10px 50px 10px 50px;
+    text-decoration: none;
+    color: white;
+}
+
+a:hover {
+    color: #a7c4bc;
+}
+
+.surgery_room_img{
+    padding: 0;
+}
+
+.field_img {
+    width: 200px;
+    height: 200px;
+    border-radius: 100%;
+    border-width: 10px;
+    background-color: #a7c4bc;
+    padding: 5px;
+    margin: auto;
+    position: center;
+}
+
+.right_mid_img {
+    height: 150px;
+    width: 150px;
+    position: absolute;
+    right: 380px;
+    top: 50px;
+    transform: rotate(45deg);
+}
+
+.left_mid_img {
+    height: 150px;
+    width: 150px;
+    position: absolute;
+    left: 400px;
+    bottom: 450px;
+    transform: rotate(-45deg);
+
+}
+
+.upper_third {
+    background-color: #dfeeea;
+    padding: 100px 50px 10px 50px;
+}
+
+.middle_third {
+    background-color: #f4f9f7;
+    padding: 50px;
+}
+
+.lower_third {
+    background-color: #2f5d62;
+    padding: 20px;
+}
+
+.personal_description {
+    float: none;
+    width: 700px;
+    text-align: center;
+    margin: auto;
+    padding: 10px;
+}
+.footer{
+    color: white;
+    text-align: center;
+    margin: 30px auto 10px auto;
+}
+
+.closing_phrase{
+    text-align: center;
+    width: 600px;
+    line-height: 2;
+    margin: 20px auto 20px auto;
+}
+.skills{
+    width: 50%;
+    float: left;
+    margin: 40px auto 40px auto;
+}
+
+.btn {
+  background: #dfeeea;
+  background-image: -webkit-linear-gradient(top, #dfeeea, #5e8b7e);
+  background-image: -moz-linear-gradient(top, #dfeeea, #5e8b7e);
+  background-image: -ms-linear-gradient(top, #dfeeea, #5e8b7e);
+  background-image: -o-linear-gradient(top, #dfeeea, #5e8b7e);
+  background-image: linear-gradient(to bottom, #dfeeea, #5e8b7e);
+  -webkit-border-radius: 28;
+  -moz-border-radius: 28;
+  border-radius: 28px;
+  text-shadow: 1px 1px 3px #4a7d82;
+  font-family: Arial;
+  color: #ffffff;
+  font-size: 20px;
+  padding: 10px 20px 10px 20px;
+  border: solid #ffffff 2px;
+  text-decoration: none;
+}
+
+.btn:hover {
+  background: #5e8b7e;
+  background-image: -webkit-linear-gradient(top, #5e8b7e, #2f5d62);
+  background-image: -moz-linear-gradient(top, #5e8b7e, #2f5d62);
+  background-image: -ms-linear-gradient(top, #5e8b7e, #2f5d62);
+  background-image: -o-linear-gradient(top, #5e8b7e, #2f5d62);
+  background-image: linear-gradient(to bottom, #5e8b7e, #2f5d62);
+  text-decoration: none;
+}
