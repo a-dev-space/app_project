@@ -2,15 +2,324 @@
 <html lang="en">
 <head>
     <meta charset="UTF-8">
-    <title>Dr. Abdulaziz Almousawi</title>
-    <link rel="icon" href="">
-    <link rel="stylesheet" href="css/styles.css">
-    <link rel="stylesheet" type="text/css" href="//fonts.googleapis.com/css?family=Marck+Script"/>
-    <link rel="stylesheet" type="text/css" href="//fonts.googleapis.com/css?family=Alike"/>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Sentence Presenter</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <style>
+        body {
+            font-family: 'Inter', sans-serif;
+            background-color: #f3f4f6;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            min-height: 100vh;
+            padding: 1rem;
+        }
+        #app-container {
+            background-color: #ffffff;
+            border-radius: 1rem;
+            box-shadow: 0 10px 15px -3px rgba(0, 0, 0, 0.1), 0 4px 6px -2px rgba(0, 0, 0, 0.05);
+            padding: 2rem;
+            max-width: 600px;
+            width: 100%;
+            transition: all 0.5s ease-in-out;
+            min-height: 600px;
+            display: flex;
+            flex-direction: column;
+            justify-content: flex-start;
+            position: relative; /* Positioning context for buttons */
+        }
+        .input-group, .radio-group {
+            margin-bottom: 1rem;
+        }
+        .btn {
+            padding: 0.75rem 1.5rem;
+            border-radius: 0.5rem;
+            font-weight: 600;
+            transition: background-color 0.2s;
+            cursor: pointer;
+        }
+        .btn-primary {
+            background-color: #3b82f6;
+            color: #ffffff;
+        }
+        .btn-primary:hover {
+            background-color: #2563eb;
+        }
+        .btn-secondary {
+            background-color: #e5e7eb;
+            color: #1f2937;
+        }
+        .btn-secondary:hover {
+            background-color: #d1d5db;
+        }
+        .presentation-screen {
+            display: none;
+            flex-direction: column;
+            justify-content: space-between; /* Ensures content and buttons are at opposite ends */
+            align-items: center;
+            text-align: center;
+            height: 100%;
+        }
+        #fragment-display {
+            font-size: 1.5rem; /* Smaller font size for better readability */
+            font-weight: 300;
+            line-height: 1.5;
+            color: #1f2937;
+        }
+        #progress-display {
+            margin-top: 1rem;
+            color: #6b7280;
+        }
+        #words-per-chunk-input:disabled {
+            background-color: #e5e7eb;
+            color: #9ca3af;
+        }
+    </style>
 </head>
-
 <body>
-    <h1>Dr. Abdulaziz Almousawi</h1>
+
+    <div id="app-container" class="rounded-2xl">
+
+        <!-- Input Screen -->
+        <div id="input-screen" class="flex flex-col justify-center items-center">
+            <h1 class="text-3xl font-bold mb-6">Sentence Presenter</h1>
+
+            <!-- Input Method Selection -->
+            <div class="radio-group flex gap-4 mb-4">
+                <label class="flex items-center space-x-2 cursor-pointer">
+                    <input type="radio" name="inputMethod" value="file" checked onchange="toggleInputMethod()">
+                    <span>Upload Text File</span>
+                </label>
+                <label class="flex items-center space-x-2 cursor-pointer">
+                    <input type="radio" name="inputMethod" value="text" onchange="toggleInputMethod()">
+                    <span>Enter Text Manually</span>
+                </label>
+            </div>
+
+            <!-- File Input Group -->
+            <div id="file-input-group" class="input-group w-full">
+                <label class="block text-gray-700 font-medium mb-2">Step 1: Upload a text file</label>
+                <input type="file" id="file-input" accept=".txt" class="block w-full text-sm text-gray-500 file:mr-4 file:py-2 file:px-4 file:rounded-full file:border-0 file:text-sm file:font-semibold file:bg-violet-50 file:text-violet-700 hover:file:bg-violet-100 cursor-pointer">
+            </div>
+
+            <!-- Textarea Input Group -->
+            <div id="textarea-input-group" class="input-group w-full hidden">
+                <label class="block text-gray-700 font-medium mb-2">Step 1: Enter text below (max 1000 words)</label>
+                <textarea id="text-area" rows="10" class="w-full p-3 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500 transition-all duration-300"></textarea>
+            </div>
+
+            <!-- Fragmentation Method Selection -->
+            <div class="radio-group flex gap-4 mt-4 mb-4">
+                <label class="flex items-center space-x-2 cursor-pointer">
+                    <input type="radio" name="fragmentationMethod" value="sentence" checked onchange="toggleFragmentationInput()">
+                    <span>Sentences</span>
+                </label>
+                <label class="flex items-center space-x-2 cursor-pointer">
+                    <input type="radio" name="fragmentationMethod" value="words" onchange="toggleFragmentationInput()">
+                    <span>Words per Chunk</span>
+                </label>
+            </div>
+
+            <!-- Words Per Chunk Input -->
+            <div class="input-group w-full">
+                <label class="block text-gray-700 font-medium mb-2">Words per chunk</label>
+                <input type="number" id="words-per-chunk-input" value="10" class="w-full p-3 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500 transition-all duration-300 text-center" min="1" disabled>
+            </div>
+
+            <!-- WPM Input -->
+            <div class="input-group w-full mb-8">
+                <label class="block text-gray-700 font-medium mb-2">Step 2: Enter words per minute (WPM)</label>
+                <input type="number" id="wpm-input" value="200" class="w-full p-3 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500 transition-all duration-300 text-center" min="1">
+            </div>
+
+            <!-- Control Buttons -->
+            <div class="flex gap-4">
+                <button id="continue-btn" class="btn btn-primary" onclick="startPresentation()">Continue</button>
+            </div>
+        </div>
+
+        <!-- Presentation Screen (hidden by default) -->
+        <div id="presentation-screen" class="presentation-screen p-8">
+            <!-- New container to keep text and progress centered and stable -->
+            <div class="flex-grow flex flex-col justify-center items-center text-center w-full">
+                <p id="fragment-display" class="mb-4"></p>
+                <p id="progress-display" class="text-sm text-gray-400"></p>
+            </div>
+            
+            <div class="flex gap-4 mt-8 absolute bottom-8 left-1/2 -translate-x-1/2">
+                <button id="play-pause-btn" class="btn btn-primary" onclick="togglePlayPause()">Start</button>
+                <button class="btn btn-secondary" onclick="stopAndQuit()">Stop and Quit</button>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        const inputScreen = document.getElementById('input-screen');
+        const presentationScreen = document.getElementById('presentation-screen');
+        const fileInput = document.getElementById('file-input');
+        const textarea = document.getElementById('text-area');
+        const wpmInput = document.getElementById('wpm-input');
+        const wordsPerChunkInput = document.getElementById('words-per-chunk-input');
+        const fragmentDisplay = document.getElementById('fragment-display');
+        const progressDisplay = document.getElementById('progress-display');
+        const playPauseBtn = document.getElementById('play-pause-btn');
+
+        let fragments = [];
+        let currentIndex = 0;
+        let isRunning = false;
+        let timeoutId = null;
+
+        // --- UI Control Functions ---
+
+        function toggleInputMethod() {
+            const inputMethod = document.querySelector('input[name="inputMethod"]:checked').value;
+            if (inputMethod === 'file') {
+                document.getElementById('file-input-group').classList.remove('hidden');
+                document.getElementById('textarea-input-group').classList.add('hidden');
+            } else {
+                document.getElementById('file-input-group').classList.add('hidden');
+                document.getElementById('textarea-input-group').classList.remove('hidden');
+            }
+        }
+
+        function toggleFragmentationInput() {
+            const fragmentationMethod = document.querySelector('input[name="fragmentationMethod"]:checked').value;
+            wordsPerChunkInput.disabled = fragmentationMethod === 'sentence';
+        }
+
+        function showScreen(screenId) {
+            inputScreen.style.display = screenId === 'input' ? 'flex' : 'none';
+            presentationScreen.style.display = screenId === 'presentation' ? 'flex' : 'none';
+        }
+
+        // --- Core Logic Functions ---
+
+        function splitIntoSentences(text) {
+            // A more robust regex to handle common sentence terminators and abbreviations
+            const sentences = text.match(/[^.!?]*[.!?](?=\s|$)/g) || [];
+            return sentences.map(s => s.trim()).filter(s => s.length > 0);
+        }
+
+        function splitIntoWordChunks(text, chunkSize) {
+            const words = text.match(/\b\w+\b/g) || [];
+            const chunks = [];
+            for (let i = 0; i < words.length; i += chunkSize) {
+                chunks.push(words.slice(i, i + chunkSize).join(' '));
+            }
+            return chunks;
+        }
+
+        function validateAndGetContent() {
+            const inputMethod = document.querySelector('input[name="inputMethod"]:checked').value;
+            if (inputMethod === 'file') {
+                const file = fileInput.files[0];
+                if (!file) {
+                    alert('Please select a text file.');
+                    return null;
+                }
+                return new Promise((resolve, reject) => {
+                    const reader = new FileReader();
+                    reader.onload = (e) => resolve(e.target.result);
+                    reader.onerror = (e) => reject('An error occurred while reading the file.');
+                    reader.readAsText(file);
+                });
+            } else { // 'text' input
+                const text = textarea.value.trim();
+                const wordCount = (text.match(/\b\w+\b/g) || []).length;
+                if (!text) {
+                    alert('Please enter some text.');
+                    return null;
+                }
+                if (wordCount > 1000) {
+                    alert(`Text exceeds the 1000-word limit. Current word count: ${wordCount}.`);
+                    return null;
+                }
+                return Promise.resolve(text);
+            }
+        }
+
+        async function startPresentation() {
+            const content = await validateAndGetContent();
+            if (!content) return;
+
+            const wpm = parseFloat(wpmInput.value);
+            if (isNaN(wpm) || wpm <= 0) {
+                alert('Please enter a valid number greater than 0 for WPM.');
+                return;
+            }
+
+            const fragmentationMethod = document.querySelector('input[name="fragmentationMethod"]:checked').value;
+            if (fragmentationMethod === 'sentence') {
+                fragments = splitIntoSentences(content);
+            } else {
+                const chunkSize = parseInt(wordsPerChunkInput.value, 10);
+                if (isNaN(chunkSize) || chunkSize <= 0) {
+                    alert('Please enter a valid number greater than 0 for words per chunk.');
+                    return;
+                }
+                fragments = splitIntoWordChunks(content, chunkSize);
+            }
+
+            if (fragments.length === 0) {
+                alert('The text contains no readable content based on the selected method.');
+                return;
+            }
+
+            currentIndex = 0;
+            isRunning = false; // Set to false initially to allow togglePlayPause to start it
+            playPauseBtn.textContent = 'Start';
+            fragmentDisplay.textContent = 'Press Start to begin.';
+            progressDisplay.textContent = `0 / ${fragments.length}`;
+            showScreen('presentation');
+        }
+
+        function showNextFragment() {
+            if (!isRunning) return;
+
+            if (currentIndex >= fragments.length) {
+                fragmentDisplay.textContent = 'End of text.';
+                progressDisplay.textContent = `${fragments.length} / ${fragments.length}`;
+                isRunning = false;
+                playPauseBtn.textContent = 'Start';
+                return;
+            }
+
+            const fragment = fragments[currentIndex];
+            fragmentDisplay.textContent = fragment;
+            progressDisplay.textContent = `${currentIndex + 1} / ${fragments.length}`;
+            currentIndex++;
+
+            const wordCount = (fragment.match(/\b\w+\b/g) || []).length;
+            const durationMs = (wordCount / parseFloat(wpmInput.value)) * 60 * 1000;
+            timeoutId = setTimeout(showNextFragment, durationMs);
+        }
+
+        function togglePlayPause() {
+            if (!isRunning) {
+                isRunning = true;
+                playPauseBtn.textContent = 'Pause';
+                showNextFragment();
+            } else {
+                isRunning = false;
+                playPauseBtn.textContent = 'Resume';
+                clearTimeout(timeoutId);
+            }
+        }
+
+        function stopAndQuit() {
+            isRunning = false;
+            clearTimeout(timeoutId);
+            showScreen('input');
+        }
+
+        // Initial UI setup
+        document.addEventListener('DOMContentLoaded', () => {
+            showScreen('input');
+            toggleInputMethod(); // Ensure initial state is correct
+            toggleFragmentationInput();
+        });
+    </script>
 
 </body>
 </html>
