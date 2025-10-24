@@ -2,69 +2,318 @@
 <html lang="en">
 <head>
 <meta charset="UTF-8" />
-<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover" />
 <title>Clickable Boxes</title>
+
+<!-- Optional, pretty font; safe fallback if offline -->
+<link rel="preconnect" href="https://fonts.googleapis.com" />
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+<link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;600;700&display=swap" rel="stylesheet" />
+
 <style>
-  :root {
-    --bg: #f8f9fb;
-    --box-bg: #ffffff;
-    --accent: #4e79ff;
-    --accent-light: #d6e0ff;
-    --shadow: rgba(0,0,0,0.1);
+  /* ========= Design Tokens ========= */
+  :root{
+    --bg: #0f1226;
+    --bg-2: #14183a;
+    --surface: rgba(255,255,255,0.08);
+    --text: #eef2ff;
+    --muted: #c7ceff;
+    --brand: #6d9bff;
+    --brand-2: #a86dff;
+    --ring: #a3b3ff;
+    --glow: 0 10px 30px rgba(109,155,255,.35), 0 20px 60px rgba(168,109,255,.25);
   }
-
-  body {
-    font-family: "Poppins", sans-serif;
-    background-color: var(--bg);
-    margin: 0;
-    padding: 0;
-    display: flex;
-    min-height: 100vh;
-    align-items: center;
-    justify-content: center;
-  }
-
-  .container {
-    display: grid;
-    gap: 1.5rem;
-    width: 90%;
-    max-width: 1000px;
-    grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
-  }
-
-  .box {
-    background-color: var(--box-bg);
-    border-radius: 1rem;
-    box-shadow: 0 4px 10px var(--shadow);
-    padding: 2rem;
-    text-align: center;
-    font-size: 1.25rem;
-    font-weight: 600;
-    color: var(--accent);
-    cursor: pointer;
-    transition: transform 0.25s ease, box-shadow 0.25s ease;
-  }
-
-  .box:hover {
-    transform: translateY(-5px);
-    box-shadow: 0 8px 18px var(--shadow);
-    background-color: var(--accent-light);
-  }
-
-  @media (max-width: 500px) {
-    .box {
-      font-size: 1rem;
-      padding: 1.5rem;
+  @media (prefers-color-scheme: light){
+    :root{
+      --bg: #f6f7ff;
+      --bg-2: #eaf0ff;
+      --surface: rgba(255,255,255,0.7);
+      --text: #12142a;
+      --muted: #4b5563;
+      --brand: #4e79ff;
+      --brand-2: #b24dff;
+      --ring: #4e79ff;
+      --glow: 0 10px 30px rgba(78,121,255,.25), 0 20px 60px rgba(178,77,255,.18);
     }
+  }
+
+  /* ========= Global Layout ========= */
+  html, body{
+    height: 100%;
+  }
+  body{
+    margin: 0;
+    font-family: "Poppins", system-ui, -apple-system, Segoe UI, Roboto, "Helvetica Neue", Arial, "Noto Sans", "Apple Color Emoji", "Segoe UI Emoji", "Segoe UI Symbol", sans-serif;
+    color: var(--text);
+    background:
+      radial-gradient(60vmax 60vmax at 10% -10%, #6d9bff22, transparent 60%),
+      radial-gradient(60vmax 60vmax at 90% 10%, #a86dff22, transparent 60%),
+      linear-gradient(180deg, var(--bg) 0%, var(--bg-2) 100%);
+    -webkit-font-smoothing: antialiased;
+    -moz-osx-font-smoothing: grayscale;
+    padding: env(safe-area-inset-top) env(safe-area-inset-right) env(safe-area-inset-bottom) env(safe-area-inset-left);
+  }
+
+  /* Subtle animated background orbs (disabled for reduced motion) */
+  .orbs::before,
+  .orbs::after{
+    content:"";
+    position: fixed;
+    inset: auto;
+    width: 60vmax;
+    height: 60vmax;
+    border-radius: 50%;
+    filter: blur(60px);
+    pointer-events: none;
+    z-index: 0;
+    opacity: .6;
+  }
+  .orbs::before{
+    background: radial-gradient(circle at 30% 30%, #6d9bff66, transparent 60%);
+    top: -20vmax; left: -20vmax;
+    animation: float1 18s ease-in-out infinite;
+  }
+  .orbs::after{
+    background: radial-gradient(circle at 70% 70%, #a86dff66, transparent 60%);
+    bottom: -25vmax; right: -25vmax;
+    animation: float2 22s ease-in-out infinite;
+  }
+  @keyframes float1{ 0%,100%{transform: translateY(0)} 50%{transform: translateY(2vmax)}}
+  @keyframes float2{ 0%,100%{transform: translateY(0)} 50%{transform: translateY(-2vmax)}}
+  @media (prefers-reduced-motion: reduce){
+    .orbs::before,.orbs::after{ animation: none; }
+  }
+
+  /* ========= Page Shell ========= */
+  .shell{
+    position: relative;
+    z-index: 1;
+    min-height: 100dvh;
+    display: grid;
+    grid-template-rows: auto 1fr auto;
+  }
+
+  /* ========= Header / Hero ========= */
+  .hero{
+    width: min(1200px, 92%);
+    margin: clamp(16px, 3vw, 32px) auto 0;
+    display: grid;
+    gap: .75rem;
+    justify-items: center;
+    text-align: center;
+  }
+  .badge{
+    display:inline-flex; align-items:center; gap:.5rem;
+    padding:.4rem .75rem;
+    border-radius:999px;
+    font-size: clamp(.72rem, 1.3vw, .85rem);
+    letter-spacing:.02em;
+    color: var(--text);
+    background: linear-gradient(90deg, #6d9bff33, #a86dff33);
+    border: 1px solid #ffffff22;
+    backdrop-filter: blur(6px);
+  }
+  .title{
+    font-weight: 700;
+    font-size: clamp(1.6rem, 4.5vw, 2.6rem);
+    line-height: 1.15;
+    margin: .25rem 0 0;
+    text-wrap: balance;
+  }
+  .subtitle{
+    color: var(--muted);
+    font-size: clamp(.95rem, 1.8vw, 1.05rem);
+    max-width: 62ch;
+    margin: .25rem 0 0;
+  }
+
+  /* ========= Grid of Cards ========= */
+  .container{
+    width: min(1200px, 92%);
+    margin: clamp(16px, 3vw, 28px) auto clamp(20px, 4vw, 40px);
+    display: grid;
+    gap: clamp(12px, 2.8vw, 24px);
+    /* auto-fit ensures fluid responsiveness; min expands for large touch targets */
+    grid-template-columns: repeat(auto-fit, minmax(min(230px, 100%), 1fr));
+  }
+
+  /* Use <a> for accessibility & keyboard nav */
+  .card{
+    position: relative;
+    display: grid;
+    grid-template-rows: auto 1fr auto;
+    gap: .65rem;
+    text-decoration: none;
+    color: var(--text);
+    background: linear-gradient(180deg, var(--surface), rgba(255,255,255,0.04));
+    border: 1px solid rgba(255,255,255,.12);
+    border-radius: 1.2rem;
+    padding: clamp(16px, 3.5vw, 22px);
+    box-shadow: 0 6px 22px rgba(0,0,0,.2);
+    backdrop-filter: blur(10px);
+    transform: translateZ(0); /* create own layer */
+    transition: transform .25s ease, box-shadow .25s ease, border-color .25s ease, background .25s ease;
+    isolation: isolate;
+    min-height: 120px;
+  }
+  .card::after{
+    content:"";
+    position:absolute; inset:-1px;
+    border-radius: inherit;
+    background: linear-gradient(135deg, #6d9bff66, #a86dff66);
+    z-index:-1;
+    opacity:.0;
+    transition: opacity .25s ease;
+    filter: blur(18px);
+  }
+  .card:hover,
+  .card:focus-visible{
+    transform: translateY(-4px);
+    box-shadow: var(--glow);
+    border-color: #ffffff44;
+  }
+  .card:hover::after,
+  .card:focus-visible::after{ opacity:.35; }
+
+  .card:focus-visible{
+    outline: none;
+    box-shadow: var(--glow), 0 0 0 3px color-mix(in oklab, var(--ring) 60%, transparent);
+  }
+
+  .card__icon{
+    width: 42px; height: 42px;
+    border-radius: 10px;
+    display:grid; place-items:center;
+    background: linear-gradient(135deg, var(--brand), var(--brand-2));
+    box-shadow: 0 8px 20px rgba(109,155,255,.35);
+  }
+  .card__title{
+    font-weight: 700; letter-spacing:.2px;
+    font-size: clamp(1.02rem, 2vw, 1.15rem);
+    margin-top: .35rem;
+  }
+  .card__desc{
+    color: var(--muted);
+    font-size: clamp(.85rem, 1.6vw, .95rem);
+    line-height: 1.45;
+    margin: .15rem 0 0;
+  }
+  .card__cta{
+    margin-top: .7rem;
+    font-size: .9rem;
+    color: #dfe6ff;
+    display: inline-flex; align-items:center; gap:.5rem;
+    opacity: .9;
+  }
+  .card__cta svg{ transition: transform .25s ease; }
+  .card:hover .card__cta svg{ transform: translateX(4px); }
+
+  /* ========= Footer ========= */
+  .footer{
+    width: min(1200px, 92%);
+    margin: 0 auto clamp(14px, 3vw, 24px);
+    color: var(--muted);
+    display:flex; justify-content:center; text-align:center;
+    font-size: clamp(.8rem, 1.4vw, .9rem);
+  }
+
+  /* ========= Mobile Tweaks ========= */
+  @media (max-width: 560px){
+    .container{ gap: 14px; }
+    .card{ border-radius: 1rem; }
+  }
+
+  /* Respect users who prefer less motion */
+  @media (prefers-reduced-motion: reduce){
+    *{ animation: none !important; transition: none !important; }
   }
 </style>
 </head>
-<body>
-  <div class="container">
-    <div class="box" onclick="location.href='read_fast.html'">Read Fast</div>
-    <div class="box" onclick="location.href='prealgebra.html'">Pre-Algebra</div>
-    <div class="box" onclick="location.href='page3.html'">Page 3</div>
-    <div class="box" onclick="location.href='page4.html'">Page 4</div>
+<body class="orbs">
+  <div class="shell">
+
+    <!-- Hero -->
+    <header class="hero" role="banner">
+      <span class="badge" aria-hidden="true">✨ Beautiful • Fast • Responsive</span>
+      <h1 class="title">Your Learning Hub</h1>
+      <p class="subtitle">A delightful, mobile-first launchpad with silky animations, accessible navigation, and cards that glow—not shout.</p>
+    </header>
+
+    <!-- Cards -->
+    <main class="container" role="main">
+      <a class="card" href="read_fast.html">
+        <div class="card__icon" aria-hidden="true">
+          <!-- Book/Speed Icon -->
+          <svg width="22" height="22" viewBox="0 0 24 24" fill="none" aria-hidden="true">
+            <path d="M4 6.5C4 5.12 5.12 4 6.5 4H20v12.5A1.5 1.5 0 0 1 18.5 18H7a3 3 0 0 0-3 3V6.5Z" stroke="white" stroke-width="1.6"/>
+            <path d="M7 6h11M7 9h8M7 12h6" stroke="white" stroke-width="1.6" stroke-linecap="round"/>
+          </svg>
+        </div>
+        <div class="card__title">Read Fast</div>
+        <p class="card__desc">Present text in smooth, timed chunks. Custom WPM, sentence or word grouping.</p>
+        <span class="card__cta">Open
+          <svg width="16" height="16" viewBox="0 0 24 24" fill="none">
+            <path d="M7 17l7-7M14 10h-4m4 0v4" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"/>
+          </svg>
+        </span>
+      </a>
+
+      <a class="card" href="prealgebra.html">
+        <div class="card__icon" aria-hidden="true">
+          <!-- Pi Icon -->
+          <svg width="22" height="22" viewBox="0 0 24 24" fill="none" aria-hidden="true">
+            <path d="M4 7h16M8 7v10M16 7c0 6 4 4 4 10" stroke="white" stroke-width="1.6" stroke-linecap="round"/>
+          </svg>
+        </div>
+        <div class="card__title">Pre-Algebra</div>
+        <p class="card__desc">Clean MathJax notes with LaTeX-style typography, organized by topic.</p>
+        <span class="card__cta">Study
+          <svg width="16" height="16" viewBox="0 0 24 24" fill="none">
+            <path d="M7 17l7-7M14 10h-4m4 0v4" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"/>
+          </svg>
+        </span>
+      </a>
+
+      <a class="card" href="page3.html">
+        <div class="card__icon" aria-hidden="true">
+          <!-- Spark Icon -->
+          <svg width="22" height="22" viewBox="0 0 24 24" fill="none" aria-hidden="true">
+            <path d="M12 3v4M12 17v4M4.93 4.93l2.83 2.83M16.24 16.24l2.83 2.83M3 12h4M17 12h4M4.93 19.07l2.83-2.83M16.24 7.76l2.83-2.83" stroke="white" stroke-width="1.6" stroke-linecap="round"/>
+          </svg>
+        </div>
+        <div class="card__title">Page 3</div>
+        <p class="card__desc">Use this slot for anything—tools, notes, or a future experiment.</p>
+        <span class="card__cta">Explore
+          <svg width="16" height="16" viewBox="0 0 24 24" fill="none">
+            <path d="M7 17l7-7M14 10h-4m4 0v4" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"/>
+          </svg>
+        </span>
+      </a>
+
+      <a class="card" href="page4.html">
+        <div class="card__icon" aria-hidden="true">
+          <!-- Grid Icon -->
+          <svg width="22" height="22" viewBox="0 0 24 24" fill="none" aria-hidden="true">
+            <rect x="4" y="4" width="7" height="7" rx="1.5" stroke="white" stroke-width="1.6"/>
+            <rect x="13" y="4" width="7" height="7" rx="1.5" stroke="white" stroke-width="1.6"/>
+            <rect x="4" y="13" width="7" height="7" rx="1.5" stroke="white" stroke-width="1.6"/>
+            <rect x="13" y="13" width="7" height="7" rx="1.5" stroke="white" stroke-width="1.6"/>
+          </svg>
+        </div>
+        <div class="card__title">Page 4</div>
+        <p class="card__desc">Another neatly designed destination—make it yours.</p>
+        <span class="card__cta">Open
+          <svg width="16" height="16" viewBox="0 0 24 24" fill="none">
+            <path d="M7 17l7-7M14 10h-4m4 0v4" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"/>
+          </svg>
+        </span>
+      </a>
+    </main>
+
+    <!-- Footer -->
+    <footer class="footer" role="contentinfo">
+      <div>Made with accessible HTML, fluid grids, and a sprinkle of tasteful glow ✨</div>
+    </footer>
   </div>
 </body>
 </html>
