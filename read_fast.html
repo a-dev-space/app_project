@@ -18,7 +18,8 @@
         #app-container {
             background-color: #ffffff;
             border-radius: 1rem;
-            box-shadow: 0 10px 15px -3px rgba(0, 0, 0, 0.1), 0 4px 6px -2px rgba(0, 0, 0, 0.05);
+            box-shadow: 0 10px 15px -3px rgba(0, 0, 0, 0.1),
+                        0 4px 6px -2px rgba(0, 0, 0, 0.05);
             padding: 2rem;
             max-width: 600px;
             width: 100%;
@@ -27,7 +28,7 @@
             display: flex;
             flex-direction: column;
             justify-content: flex-start;
-            position: relative; /* Positioning context for buttons */
+            position: relative;
         }
         .input-group, .radio-group {
             margin-bottom: 1rem;
@@ -56,14 +57,13 @@
         .presentation-screen {
             display: none;
             flex-direction: column;
-            justify-content: space-between; /* Ensures content and buttons are at opposite ends */
+            justify-content: space-between;
             align-items: center;
             text-align: center;
             height: 100%;
         }
-       
         #fragment-display {
-            font-size: 1.5rem; /* Smaller font size for better readability */
+            font-size: 1.5rem;
             font-weight: 300;
             line-height: 1.5;
             color: #1f2937;
@@ -80,17 +80,19 @@
 </head>
 <body>
 
-    <!-- Top Back Button (fixed) -->
-    <button
-        type="button"
-        class="fixed top-4 left-4 z-50 inline-flex items-center gap-2 rounded-lg bg-blue-600 px-3 py-2 text-white shadow hover:bg-blue-700 focus:outline-none focus-visible:ring-2 focus-visible:ring-offset-2 focus-visible:ring-blue-500"
-        onclick="window.location.href='index.html'"
-        aria-label="Go back to index"
-        title="Back to index"
-    >
-        <span aria-hidden="true">←</span>
-        <span>Back</span>
-    </button>
+    <!-- Centered Back Button -->
+    <div class="fixed top-4 left-1/2 -translate-x-1/2 z-50">
+        <button
+            type="button"
+            class="inline-flex items-center gap-2 rounded-lg bg-blue-600 px-4 py-2 text-white shadow hover:bg-blue-700 focus:outline-none focus-visible:ring-2 focus-visible:ring-offset-2 focus-visible:ring-blue-500"
+            onclick="window.location.href='index.html'"
+            aria-label="Go back to index"
+            title="Back to index"
+        >
+            <span aria-hidden="true">←</span>
+            <span>Back</span>
+        </button>
+    </div>
 
     <div id="app-container" class="rounded-2xl">
 
@@ -113,13 +115,17 @@
             <!-- File Input Group -->
             <div id="file-input-group" class="input-group w-full">
                 <label class="block text-gray-700 font-medium mb-2">Step 1: Upload a text file</label>
-                <input type="file" id="file-input" accept=".txt" class="block w-full text-sm text-gray-500 file:mr-4 file:py-2 file:px-4 file:rounded-full file:border-0 file:text-sm file:font-semibold file:bg-violet-50 file:text-violet-700 hover:file:bg-violet-100 cursor-pointer">
+                <input type="file" id="file-input" accept=".txt"
+                       class="block w-full text-sm text-gray-500 file:mr-4 file:py-2 file:px-4
+                              file:rounded-full file:border-0 file:text-sm file:font-semibold
+                              file:bg-violet-50 file:text-violet-700 hover:file:bg-violet-100 cursor-pointer">
             </div>
 
             <!-- Textarea Input Group -->
             <div id="textarea-input-group" class="input-group w-full hidden">
                 <label class="block text-gray-700 font-medium mb-2">Step 1: Enter text below (max 1000 words)</label>
-                <textarea id="text-area" rows="10" class="w-full p-3 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500 transition-all duration-300"></textarea>
+                <textarea id="text-area" rows="10"
+                          class="w-full p-3 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500 transition-all duration-300"></textarea>
             </div>
 
             <!-- Fragmentation Method Selection -->
@@ -137,13 +143,15 @@
             <!-- Words Per Chunk Input -->
             <div class="input-group w-full">
                 <label class="block text-gray-700 font-medium mb-2">Words per chunk</label>
-                <input type="number" id="words-per-chunk-input" value="10" class="w-full p-3 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500 transition-all duration-300 text-center" min="1" disabled>
+                <input type="number" id="words-per-chunk-input" value="10"
+                       class="w-full p-3 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500 transition-all duration-300 text-center" min="1" disabled>
             </div>
 
             <!-- WPM Input -->
             <div class="input-group w-full mb-8">
                 <label class="block text-gray-700 font-medium mb-2">Step 2: Enter words per minute (WPM)</label>
-                <input type="number" id="wpm-input" value="200" class="w-full p-3 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500 transition-all duration-300 text-center" min="1">
+                <input type="number" id="wpm-input" value="200"
+                       class="w-full p-3 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500 transition-all duration-300 text-center" min="1">
             </div>
 
             <!-- Control Buttons -->
@@ -152,9 +160,8 @@
             </div>
         </div>
 
-        <!-- Presentation Screen (hidden by default) -->
+        <!-- Presentation Screen -->
         <div id="presentation-screen" class="presentation-screen p-8">
-            <!-- New container to keep text and progress centered and stable -->
             <div class="flex-grow flex flex-col justify-center items-center text-center w-full">
                 <p id="fragment-display" class="mb-4"></p>
                 <p id="progress-display" class="text-sm text-gray-400"></p>
@@ -183,8 +190,6 @@
         let isRunning = false;
         let timeoutId = null;
 
-        // --- UI Control Functions ---
-
         function toggleInputMethod() {
             const inputMethod = document.querySelector('input[name="inputMethod"]:checked').value;
             if (inputMethod === 'file') {
@@ -206,10 +211,7 @@
             presentationScreen.style.display = screenId === 'presentation' ? 'flex' : 'none';
         }
 
-        // --- Core Logic Functions ---
-
         function splitIntoSentences(text) {
-            // A more robust regex to handle common sentence terminators and abbreviations
             const sentences = text.match(/[^.!?]*[.!?](?=\s|$)/g) || [];
             return sentences.map(s => s.trim()).filter(s => s.length > 0);
         }
@@ -234,10 +236,10 @@
                 return new Promise((resolve, reject) => {
                     const reader = new FileReader();
                     reader.onload = (e) => resolve(e.target.result);
-                    reader.onerror = (e) => reject('An error occurred while reading the file.');
+                    reader.onerror = () => reject('An error occurred while reading the file.');
                     reader.readAsText(file);
                 });
-            } else { // 'text' input
+            } else {
                 const text = textarea.value.trim();
                 const wordCount = (text.match(/\b\w+\b/g) || []).length;
                 if (!text) {
@@ -280,7 +282,7 @@
             }
 
             currentIndex = 0;
-            isRunning = false; // Set to false initially to allow togglePlayPause to start it
+            isRunning = false;
             playPauseBtn.textContent = 'Start';
             fragmentDisplay.textContent = 'Press Start to begin.';
             progressDisplay.textContent = `0 / ${fragments.length}`;
@@ -326,13 +328,11 @@
             showScreen('input');
         }
 
-        // Initial UI setup
         document.addEventListener('DOMContentLoaded', () => {
             showScreen('input');
-            toggleInputMethod(); // Ensure initial state is correct
+            toggleInputMethod();
             toggleFragmentationInput();
         });
     </script>
-
 </body>
 </html>
