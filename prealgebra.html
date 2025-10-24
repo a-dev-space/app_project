@@ -1,0 +1,121 @@
+<!-- Pre-Algebra “Everything-you-need” Cheatsheet (compact but complete).
+     HTML + MathJax. Sections mirror the two PDFs. -->
+
+
+<script>
+  MathJax = {
+    tex: { inlineMath: [['$', '$'], ['\\(', '\\)']] },
+    svg: { fontCache: 'global' }
+  };
+</script>
+<script src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-svg.js" async></script>
+
+
+<h1>Number Systems & Set Notation</h1>
+<ul>
+  <li><b>Sets & symbols:</b> ℕ (natural: 1,2,3,…), 𝕎 (whole: 0,1,2,…), ℤ (integers: …,−2,−1,0,1,2,…), ℚ (rationals = fractions), ℝ∖ℚ (irrationals), ℝ (reals). Hierarchy: ℝ ⊇ (ℚ ∪ (ℝ∖ℚ)) with ℚ ⊇ ℤ ⊇ 𝕎 ⊇ ℕ. Set ops: “∈” (is an element), “∪” (union), “∩” (intersection). Examples: A = {1,2}; A = {x ∈ ℤ}. </li>
+  <li><b>Identity numbers:</b> Additive identity 0 (adding/subtracting 0 changes nothing). Multiplicative identity 1 (multiplying/dividing by 1 changes nothing). </li>
+</ul>
+
+<h1>Signed Numbers (Positives/Negatives)</h1>
+<ul>
+  <li><b>Algebraic subtraction:</b> \(a-b = a+(-b)\). </li>
+  <li><b>Add/Subtract rules:</b> Same signs → keep sign & add magnitudes. Different signs → subtract smaller magnitude from larger, keep sign of larger magnitude. </li>
+  <li><b>Multiply/Divide rules:</b> Same signs → positive; different → negative. Thus “even # of negatives → +, odd → −”. </li>
+</ul>
+
+<h1>Opposites & Absolute Value</h1>
+<ul>
+  <li><b>Opposite:</b> Numbers equally distant from 0 on the number line have opposite signs (e.g., 4 and −4). 0 is its own opposite. <!-- detailed exposition summarized from notes --> </li>
+  <li><b>Absolute value:</b> distance from 0; always non-negative. Evaluate inside first: e.g., \(|-3-4| = |-7| = 7\); in expressions, simplify then take absolute value. </li>
+</ul>
+
+<h1>Divisibility, Multiples, Primes</h1>
+<ul>
+  <li><b>Divisibility test summary:</b>
+    <ul>
+      <li>2: last digit even; 3: sum of digits divisible by 3; 4: last two digits divisible by 4; 5: last digit 0 or 5; 6: divisible by 2 and 3; 7: \(5\times\)last digit + rest divisible by 7 (or rest − \(2\times\)last digit divisible by 7); 8: last three digits divisible by 8; 9: sum of digits divisible by 9; 10: last digit 0. </li>
+    </ul>
+  </li>
+  <li><b>Multiples:</b> numbers of the form \(k\cdot n\) for whole \(k\). 0 is a multiple of every number; division by 0 is never allowed. </li>
+  <li><b>Prime vs Composite:</b> Prime >1 divisible only by 1 and itself (e.g., 7, 11). Composite >1 with ≥1 other divisor (e.g., 6, 21). </li>
+  <li><b>Prime factorization (“product of primes”):</b> break into primes; write with exponents, e.g., \(12=2^2\cdot 3\); \(45=3^2\cdot 5\). </li>
+  <li><b>GCF (greatest common factor):</b> intersection of prime powers at minimum exponents (e.g., GCF(14,28)=14). </li>
+  <li><b>LCM (least common multiple):</b> union of prime powers at maximum exponents (e.g., LCM(20,75)=\(2^2\cdot 3\cdot 5^2=300\)). </li>
+</ul>
+
+<h1>Decimals & Place Value</h1>
+<ul>
+  <li><b>Whole-number places:</b> ones (10⁰), tens (10¹), hundreds (10²), … up to hundred trillions listed. </li>
+  <li><b>Decimal places:</b> tenths (10⁻¹), hundredths (10⁻²), thousandths (10⁻³), … down to hundred-trillionths listed. </li>
+</ul>
+
+<h1>Fractions</h1>
+<ul>
+  <li><b>Concept:</b> part-of-a-whole; numerator “parts taken”, denominator “equal parts total”. Percent means “per-hundred” (e.g., \(76\%=\frac{76}{100}\)). </li>
+  <li><b>Equivalent fractions (Denominator–Numerator Rule):</b> multiplying top & bottom by same non-zero \(c\) leaves value unchanged: \(\frac{a}{b}=\frac{ac}{bc}\) (rationalize denominators via this). Signs: you may flip any two signs (numerator/denominator/out-front) without changing value. </li>
+  <li><b>Reciprocal:</b> \(a\ne0 \Rightarrow \text{reciprocal}=\frac1a\); \(a\cdot \frac1a=1\). </li>
+  <li><b>Division by zero:</b> denominator 0 → undefined; numerator 0 → value 0. </li>
+  <li><b>Simplify to lowest terms:</b> cancel common prime factors of numerator/denominator; if equal → fraction equals 1. (Worked example \(630/945\to 2/3\)). </li>
+  <li><b>Add/Subtract:</b>
+    <ul>
+      <li><i>Like denominators:</i> \(\frac{a}{d}\pm\frac{b}{d}=\frac{a\pm b}{d}\). </li>
+      <li><i>Unlike denominators:</i> use LCD (LCM of denominators), convert to equivalent fractions, then add/subtract; reduce. (Worked example \(5/24+3/40\)). </li>
+    </ul>
+  </li>
+  <li><b>Ratio & Proportion:</b> ratio compares two quantities; a proportion asserts two ratios are equal. </li>
+  <li><b>Percent markup:</b> <span>\(\text{Selling Price}=\text{Purchase Price}+\text{Markup}\)</span>. </li>
+</ul>
+
+<h1>Exponents</h1>
+<ul>
+  <li><b>Exponential notation:</b> \(x\cdot x\cdot\ldots\cdot x = x^n\). </li>
+  <li><b>Laws (for real \(a,b\), base \(x\ne0\)):</b>
+    <ul>
+      <li>Product: \(x^a x^b = x^{a+b}\), and \((xy)^a = x^a y^a\).</li>
+      <li>Power: \((x^a)^b = x^{ab}\).</li>
+      <li>Quotient: \(\dfrac{x^a}{x^b} = x^{a-b}\).</li>
+      <li>Negative exponents: \(x^{-n}=\dfrac{1}{x^n}\).</li>
+      <li>Special: \(1^n=1\) for all \(n\). </li>
+    </ul>
+  </li>
+</ul>
+
+<h1>Radicals</h1>
+<ul>
+  <li><b>Definitions:</b> square root \((\sqrt{x})^2=x\) for \(x>0\); cube root \((\sqrt[3]{x})^3=x\) (sign can be ±); fourth root \((\sqrt[4]{x})^4=x\) (principal root positive). Terms: radical sign \( \sqrt{\phantom{x}} \), radicand (inside), index (2 if omitted). </li>
+  <li><b>Product of square roots:</b> for non-negative \(m,n\): \(\sqrt{m}\sqrt{n}=\sqrt{mn}\) and \(\sqrt{mn}=\sqrt{m}\sqrt{n}\). If both negative, \(\sqrt{m}\sqrt{n}=-\sqrt{mn}\). </li>
+  <li><b>Simplified radical form:</b> no perfect-square factor in the radicand and no radicals in denominator. </li>
+</ul>
+
+<h1>Scientific Notation</h1>
+<ul>
+  <li><b>Powers of 10:</b> \(10^1=10\), \(10^2=100\), \(10^3=1000\), \(10^4=10000\), … </li>
+  <li><b>Proper form:</b> \(a\times 10^n\) with \(1\le a&lt;10\) (adjust decimal accordingly). <!-- proper-form rule implied throughout notes examples --> </li>
+  <li><b>Multiply SN:</b> multiply decimals; add exponents; normalize to proper form. <br/>
+      <b>Divide SN:</b> divide decimals; subtract exponents; normalize. </li>
+  <li><b>Mixed mult/div:</b> order doesn’t matter if each step follows rules; e.g.,
+    \(
+      \frac{(2.3\times10^{-4})(6.4\times10^{12})}{4.2\times10^{10}}
+      \approx 3.5\times10^{-2}.
+    \) 
+  </li>
+  <li><b>Estimation with SN:</b> round decimals to nearest whole first, then combine powers (faster, approximate). </li>
+</ul>
+
+<h1>Measurement & Conversions</h1>
+<ul>
+  <li><b>US customary (selected):</b> 12 in = 1 ft; 3 ft = 1 yd; 5280 ft = 1 mi; 16 oz = 1 lb; 2000 lb = 1 ton. </li>
+  <li><b>Metric prefixes (table):</b> kilo, hecto, deka, (base: meter/liter/gram), deci, centi, milli with reciprocal relations (e.g., 1 kilo = 1000 base, 1 milli = 1/1000 base). </li>
+</ul>
+
+<h1>Operations with Signed Numbers (worked logic)</h1>
+<ul>
+  <li><b>Add/Subtract:</b> commutative for addition but not for subtraction; demonstrate via absolute-value comparison for mixed signs and via “\(a-b=a+(-b)\)”. </li>
+  <li><b>Multiply/Divide:</b> commutative for multiplication, not for division; zero rules: any number ×0 = 0; cannot divide by 0; 0 divided by a nonzero number is 0. </li>
+</ul>
+
+<hr/>
+<p style="font-size:0.9em;opacity:0.85">
+<b>Sources:</b> concise synthesis from <i>01&nbsp;Pre-Algebra.formulas.pdf</i> and <i>04&nbsp;Pre-Algebra.notes.pdf</i> with formulas, rules, examples, and tables retained in compressed form.  
+</p>
