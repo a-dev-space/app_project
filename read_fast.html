@@ -61,6 +61,13 @@
             text-align: center;
             height: 100%;
         }
+        .back-container { text-align:center; margin:1.5rem 0; }
+        .back-button {
+            background: var(--accent); color:white; border:none;
+            padding:0.7rem 2rem; border-radius:8px; font-weight:600;
+            cursor:pointer; box-shadow:0 3px 6px rgba(0,0,0,0.2);
+            transition:all 0.25s ease;
+        }
         #fragment-display {
             font-size: 1.5rem; /* Smaller font size for better readability */
             font-weight: 300;
@@ -78,7 +85,11 @@
     </style>
 </head>
 <body>
-
+    
+<div class="back-container">
+  <button class="back-button" onclick="window.location.href='index.html'">← Back</button>
+</div>
+    
     <div id="app-container" class="rounded-2xl">
 
         <!-- Input Screen -->
