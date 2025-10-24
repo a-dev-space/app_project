@@ -3,112 +3,52 @@
 <head>
 <meta charset="UTF-8" />
 <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-<title>Pre-Algebra Cheatsheet</title>
+<title>Pre-Algebra Notes – Part 1 (Number Systems)</title>
 
 <style>
-  /* ========== GLOBAL LOOK ========== */
   :root {
     --bg: #fafafa;
     --text: #1a1a1a;
     --accent: #3b5bdb;
-    --link: #2f6ee2;
-    --max-width: 900px;
   }
-
   body {
-    background-color: var(--bg);
-    color: var(--text);
+    background: var(--bg);
     font-family: "Computer Modern Serif", "Georgia", "Times New Roman", serif;
-    font-size: 17px;
     line-height: 1.7;
+    color: var(--text);
     margin: 0;
     padding: 0;
   }
-
-  /* container mimics TeX page margins */
-  main {
-    max-width: var(--max-width);
-    margin: 3rem auto;
-    padding: 0 3rem; /* ← left/right padding */
-    background: white;
-    border-radius: 12px;
-    box-shadow: 0 0 10px rgba(0,0,0,0.08);
-  }
-
-  /* ========== TYPOGRAPHY ========== */
-  h1 {
-    font-size: 1.6rem;
-    color: var(--accent);
-    border-bottom: 1px solid #ccc;
-    margin-top: 2.5rem;
-    padding-bottom: 0.4rem;
-  }
-
-  ul {
-    margin-left: 1.5rem;
-    margin-bottom: 1rem;
-  }
-
-  li {
-    margin-bottom: 0.4rem;
-  }
-
-  hr {
-    border: none;
-    border-top: 1px dashed #ccc;
-    margin: 3rem 0 1.5rem 0;
-  }
-
-  /* ========== BACK BUTTON ========== */
-  .back-container {
-    text-align: center;
-    margin: 1.8rem 0 0.5rem 0;
-  }
-
+  .back-container { text-align:center; margin:1.5rem 0; }
   .back-button {
-    background-color: var(--accent);
-    color: #fff;
-    border: none;
-    padding: 0.7rem 2rem;
-    font-size: 1.05rem;
-    font-weight: 600;
-    border-radius: 8px;
-    cursor: pointer;
-    box-shadow: 0 3px 6px rgba(0,0,0,0.15);
-    transition: all 0.25s ease;
+    background: var(--accent); color:white; border:none;
+    padding:0.7rem 2rem; border-radius:8px; font-weight:600;
+    cursor:pointer; box-shadow:0 3px 6px rgba(0,0,0,0.2);
+    transition:all 0.25s ease;
   }
-
-  .back-button:hover {
-    background-color: #2f47a3;
-    transform: translateY(-3px);
-    box-shadow: 0 6px 12px rgba(0,0,0,0.15);
+  .back-button:hover { background:#2f47a3; transform:translateY(-3px); }
+  main {
+    max-width:900px; margin:2rem auto 3rem auto;
+    background:white; padding:0 3rem; border-radius:12px;
+    box-shadow:0 0 10px rgba(0,0,0,0.08);
   }
-
-  .back-button:active {
-    transform: translateY(0);
-    box-shadow: 0 2px 4px rgba(0,0,0,0.1);
+  h1 {
+    color:var(--accent); font-size:1.6rem;
+    border-bottom:1px solid #ccc; padding-bottom:0.4rem;
+    margin-top:2.5rem;
   }
-
-  /* ========== MATHJAX TWEAKS ========== */
-  mjx-container[jax="SVG"] {
-    font-size: 110% !important; /* more readable equations */
-  }
-
-  /* ========== RESPONSIVE ========== */
-  @media (max-width: 600px) {
-    main { padding: 0 1.2rem; }
-    body { font-size: 16px; }
-    h1 { font-size: 1.4rem; }
-  }
+  h2 { color:#2d3a86; margin-top:2rem; }
+  ul { margin-left:1.5rem; }
+  li { margin-bottom:0.4rem; }
+  mjx-container[jax="SVG"] { font-size:110% !important; }
+  @media (max-width:600px){ main{padding:0 1rem;} h1{font-size:1.4rem;} }
 </style>
 
-<!-- ========== MATHJAX CONFIG ========== -->
 <script>
   MathJax = {
     tex: {
-      inlineMath: [['$', '$'], ['\\(', '\\)']],
-      displayMath: [['$$', '$$'], ['\\[', '\\]']],
-      processEscapes: true
+      inlineMath:[['$','$'],['\\(','\\)']],
+      displayMath:[['$$','$$'],['\\[','\\]']]
     },
     svg: { fontCache: 'global' }
   };
@@ -117,78 +57,529 @@
 </head>
 
 <body>
+<div class="back-container">
+  <button class="back-button" onclick="window.location.href='index.html'">← Back</button>
+</div>
 
-  <div class="back-container">
-    <button class="back-button" onclick="window.location.href='index.html'">← Back</button>
-  </div>
+<main>
+<h1>Part 1 – Number Systems and Properties</h1>
 
-  <main>
-    <h1>Number Systems & Set Notation</h1>
+<h2>1. Sets of Numbers and Notation</h2>
+<p>
+Mathematics classifies numbers into structured sets:
+</p>
+<ul>
+  <li><b>Natural numbers (ℕ):</b> $1, 2, 3, …$ – counting numbers.</li>
+  <li><b>Whole numbers (𝕎):</b> $0, 1, 2, 3, …$ – same as ℕ plus zero.</li>
+  <li><b>Integers (ℤ):</b> …, $-3,\,-2,\,-1, 0, 1, 2, 3,\,$ – includes negatives.</li>
+  <li><b>Rational numbers (ℚ):</b> fractions $\frac{a}{b}$ with $a,b∈ℤ$, $b≠0$.</li>
+  <li><b>Irrational numbers:</b> cannot be expressed as fractions (e.g. $\pi$, $\sqrt2$).</li>
+  <li><b>Real numbers (ℝ):</b> all rationals and irrationals together.</li>
+</ul>
+<p>
+Each set nests inside the next: $ℕ⊂𝕎⊂ℤ⊂ℚ⊂ℝ$.  
+In set notation, the symbol “∈” means “is an element of”.
+</p>
+
+<h2>2. Basic Number Properties</h2>
+<ul>
+  <li><b>Additive identity:</b> $a+0=a$ – zero changes nothing when added.</li>
+  <li><b>Multiplicative identity:</b> $a×1=a$ – one changes nothing when multiplied.</li>
+  <li><b>Additive inverse (opposite):</b> $a+(-a)=0$.</li>
+  <li><b>Multiplicative inverse (reciprocal):</b> $a×\frac1a=1$ for $a≠0$.</li>
+  <li><b>Commutative property:</b> $a+b=b+a$ and $a×b=b×a$.</li>
+  <li><b>Associative property:</b> $(a+b)+c=a+(b+c)$ and $(a×b)×c=a×(b×c)$.</li>
+  <li><b>Distributive property:</b> $a(b+c)=ab+ac$.</li>
+</ul>
+
+<h2>3. Absolute Value and Opposites</h2>
+<p>
+The <b>absolute value</b> of a number is its distance from 0 on the number line:
+$\;|{-4}|=4,\;|7|=7,\;|{-3-4}|=7.$  
+It is always non-negative.
+</p>
+<p>
+Two numbers that are the same distance from 0 but on opposite sides are <b>opposites</b>: 4 and −4.  
+Note that 0 is its own opposite.
+</p>
+
+<h2>4. Signed Number Operations and Rules</h2>
+<p>
+When working with positives and negatives:
+</p>
+<ul>
+  <li><b>Addition/Subtraction:</b>  
+    Same sign → add magnitudes, keep sign; different sign → subtract and keep sign of larger magnitude.  
+    Example: $(-7)+5=-2$.</li>
+  <li><b>Multiplication/Division:</b>  
+    Same sign → positive; different sign → negative.  
+    Even number of negatives → +, odd → −.</li>
+  <li><b>Zero rules:</b> Any number times 0 is 0; division by 0 is undefined; $0/a=0$ for $a≠0$.</li>
+</ul>
+
+<h2>5. Order of Operations (PEMDAS)</h2>
+<p>
+To evaluate any expression:
+</p>
+<ol>
+  <li>Parentheses and grouping symbols first (innermost to outermost).</li>
+  <li>Exponents and roots.</li>
+  <li>Multiplication and division (left to right).</li>
+  <li>Addition and subtraction (left to right).</li>
+</ol>
+<p>
+Example: $8-3×(2+1)^2=8-3×9=8-27=-19.$
+</p>
+
+<h2>6. Divisibility and Prime Concepts</h2>
+<p>
+A number $a$ is <em>divisible by</em> $b$ if $a÷b$ has no remainder.  
+Short tests help identify factors:
+</p>
+<ul>
+  <li>2 → last digit even (0,2,4,6,8)</li>
+  <li>3 → sum of digits divisible by 3</li>
+  <li>4 → last two digits form number divisible by 4</li>
+  <li>5 → last digit 0 or 5</li>
+  <li>6 → divisible by both 2 and 3</li>
+  <li>9 → digit sum divisible by 9</li>
+  <li>10 → last digit 0</li>
+</ul>
+<p>
+<b>Prime number:</b> has exactly two factors (1 and itself). Examples: 2, 3, 5, 7, 11, 13.  
+<b>Composite:</b> has more than two factors (e.g. 6 = 2×3).
+</p>
+<p>
+Every integer &gt; 1 can be expressed uniquely as a product of prime factors (prime factorization), such as  
+$84=2^2×3×7$.
+</p>
+
+<h2>7. Greatest Common Factor (GCF) and Least Common Multiple (LCM)</h2>
+<ul>
+  <li><b>GCF:</b> The largest integer that divides each of two numbers exactly.  
+      Find by listing factors or using prime factorization (min exponents).  
+      Example: GCF(18, 24)=6.</li>
+  <li><b>LCM:</b> The smallest positive integer divisible by each number (max exponents).  
+      Example: LCM(18, 24)=72.</li>
+  <li><b>Relation:</b> $\text{GCF}(a,b)×\text{LCM}(a,b)=a×b$.</li>
+</ul>
+
+<hr />
+<p style="text-align:center;font-size:0.9em;opacity:0.8;">
+<b>End of Part 1 – Next: Fractions and Decimals</b>
+</p>
+
+<h1>Part 2 – Fractions and Decimals</h1>
+
+<h2>1. Meaning of a Fraction</h2>
+<p>
+A fraction represents part of a whole: the <b>numerator</b> counts how many parts are taken, and the <b>denominator</b> tells how many equal parts the whole is divided into.  
+Example: $\frac34$ means “three parts out of four equal parts of the whole”.
+</p>
+
+<h2>2. Equivalent Fractions</h2>
+<p>
+Multiplying or dividing numerator and denominator by the same non-zero number produces an <b>equivalent fraction</b>:
+\[ \frac{a}{b}=\frac{a·c}{b·c}=\frac{a÷c}{b÷c}. \]
+All such fractions have the same value.
+</p>
+
+<h2>3. Simplifying Fractions</h2>
+<ul>
+  <li>Find the greatest common factor (GCF) of numerator and denominator.</li>
+  <li>Divide both by that GCF.</li>
+</ul>
+<p>Example: $\frac{630}{945}=\frac{630÷315}{945÷315}=\frac23.$</p>
+
+<h2>4. Improper Fractions and Mixed Numbers</h2>
+<ul>
+  <li><b>Improper fraction:</b> numerator ≥ denominator, e.g. $\frac{7}{4}$.</li>
+  <li><b>Mixed number:</b> combination of whole + proper fraction, e.g. $1\frac34$.</li>
+  <li><b>Convert:</b>
+    $$ 1\frac34=\frac{7}{4},\qquad \frac{7}{4}=1\frac34. $$
+  </li>
+</ul>
+
+<h2>5. Adding and Subtracting Fractions</h2>
+<ul>
+  <li>For equal denominators:
+    \[ \frac{a}{d}\pm\frac{b}{d}=\frac{a\pm b}{d}. \]
+  </li>
+  <li>For different denominators:
+    <ol>
+      <li>Find the least common denominator (LCD = LCM of denominators).</li>
+      <li>Convert each fraction to an equivalent one with that LCD.</li>
+      <li>Add or subtract numerators, keep the common denominator.</li>
+      <li>Simplify if possible.</li>
+    </ol>
+  </li>
+</ul>
+<p>Example: $ \frac{5}{24}+\frac{3}{40}=\frac{25}{120}+\frac{9}{120}=\frac{34}{120}=\frac{17}{60}.$</p>
+
+<h2>6. Multiplying and Dividing Fractions</h2>
+<ul>
+  <li><b>Multiplication:</b> multiply numerators and denominators directly.
+    \[ \frac{a}{b}×\frac{c}{d}=\frac{a·c}{b·d}. \]
+  </li>
+  <li><b>Division:</b> multiply by the reciprocal.
+    \[ \frac{a}{b}÷\frac{c}{d}=\frac{a}{b}×\frac{d}{c}=\frac{a·d}{b·c}. \]
+  </li>
+  <li><b>Reciprocal:</b> for non-zero $a$, $a^{-1}=\frac1a$.</li>
+</ul>
+
+<h2>7. Decimals and Place Value</h2>
+<p>
+Every digit’s position gives its value.  
+To the right of the decimal point: tenths $(10^{-1})$, hundredths $(10^{-2})$, thousandths $(10^{-3})$, etc.
+</p>
+<p>
+Example: $37.482=3×10^1+7×10^0+4×10^{-1}+8×10^{-2}+2×10^{-3}.$
+</p>
+
+<h2>8. Converting Fractions ↔ Decimals</h2>
+<ul>
+  <li><b>Fraction → Decimal:</b> divide numerator by denominator.</li>
+  <li><b>Decimal → Fraction:</b> write the digits after the decimal as the numerator and the corresponding power of 10 as the denominator, then simplify.</li>
+</ul>
+<p>
+Examples:  
+$\frac{3}{4}=0.75,$  
+$0.625=\frac{625}{1000}=\frac58.$
+</p>
+
+<h2>9. Repeating Decimals as Fractions</h2>
+<p>
+Let $x$ represent the repeating decimal. Move the decimal point so that the repeated block aligns, subtract to eliminate it, and solve for $x$.
+</p>
+<p>Example: $x=0.\overline{36}$  
+$100x=36.\overline{36}$  
+Subtract → $99x=36$ → $x=\frac{36}{99}=\frac49.$</p>
+
+<h2>10. Percent, Ratios and Proportions</h2>
+<ul>
+  <li><b>Percent means “per hundred”</b>: $76\%=\frac{76}{100}=0.76$.</li>
+  <li><b>Ratio:</b> comparison of two quantities $a$ and $b$, written $a:b$ or $\frac{a}{b}$.</li>
+  <li><b>Proportion:</b> statement that two ratios are equal,
+    \[ \frac{a}{b}=\frac{c}{d}. \]
+    Cross-products are equal: $ad=bc$.
+  </li>
+</ul>
+
+<h2>11. Percent Change and Markup</h2>
+<ul>
+  <li><b>Percent increase:</b> 
+    \[ \frac{\text{New – Old}}{\text{Old}}×100\%. \]
+  </li>
+  <li><b>Percent decrease:</b> 
+    \[ \frac{\text{Old – New}}{\text{Old}}×100\%. \]
+  </li>
+  <li><b>Markup formula:</b> Selling Price = Purchase Price + Markup.</li>
+</ul>
+<p>Example: An item costing $50 with a 20% markup → $50+0.20×50=$60.</p>
+
+<h2>12. Estimation with Fractions and Decimals</h2>
+<p>
+Round each number to an easy value (e.g. nearest whole or tenth) before performing operations; useful for quick checks.
+</p>
+
+<hr />
+<p style="text-align:center;font-size:0.9em;opacity:0.8;">
+<b>End of Part 2 – Next: Exponents and Radicals</b>
+</p>
+
+<h1>Part 3 – Exponents and Radicals</h1>
+
+<h2>1. Meaning of an Exponent</h2>
+<p>
+An exponent tells how many times to multiply the base by itself.  
+\[ x^n=\underbrace{x×x×\cdots×x}_{n\text{ times}}. \]
+Example: $2^5=2×2×2×2×2=32.$  
+The base $x$ may be any real number; $n$ is called the <b>power or exponent</b>.
+</p>
+
+<h2>2. Basic Exponent Rules</h2>
+<ul>
+  <li><b>Product Rule:</b> $x^a·x^b=x^{a+b}$ (same base → add exponents).</li>
+  <li><b>Power Rule:</b> $(x^a)^b=x^{ab}$ (power of a power → multiply exponents).</li>
+  <li><b>Power of a Product:</b> $(xy)^a=x^a y^a$.</li>
+  <li><b>Power of a Quotient:</b> $\left(\dfrac{x}{y}\right)^a=\dfrac{x^a}{y^a}$ ($y\neq0$).</li>
+  <li><b>Quotient Rule:</b> $\dfrac{x^a}{x^b}=x^{a-b}$ (same base → subtract exponents).</li>
+  <li><b>Zero Exponent:</b> $x^0=1$ (for $x\neq0$).</li>
+  <li><b>Negative Exponent:</b> $x^{-n}=\dfrac{1}{x^n}$.</li>
+</ul>
+
+<h2>3. Special Cases and Observations</h2>
+<ul>
+  <li>$0^n=0$ for $n&gt;0$.</li>
+  <li>$1^n=1$ for all $n$.</li>
+  <li>Exponents distribute only over <i>multiplication</i> or <i>division</i>, not addition:
+      $(a+b)^2\ne a^2+b^2$; instead $(a+b)^2=a^2+2ab+b^2$.</li>
+</ul>
+
+<h2>4. Simplifying Exponential Expressions</h2>
+<p>
+Apply the laws systematically, combine like bases, and re-write with positive exponents.  
+Example:
+\[ \dfrac{2^5x^3y^{-2}}{4x^{-1}y^4}
+=\dfrac{2^5}{2^2}\;x^{3-(-1)}\;y^{-2-4}
+=2^3x^4y^{-6}
+=\dfrac{8x^4}{y^6}. \]
+</p>
+
+<h2>5. Roots and Radical Notation</h2>
+<p>
+A root is the inverse of an exponent. The symbol $\sqrt[n]{\,}$ is the radical sign, $n$ is the index, and the value inside is the radicand.
+</p>
+<ul>
+  <li><b>Square root:</b> $(\sqrt{x})^2=x$ for $x≥0$.</li>
+  <li><b>Cube root:</b> $(\sqrt[3]{x})^3=x$ – may be negative or positive.</li>
+  <li><b>Fourth root:</b> $(\sqrt[4]{x})^4=x$ (principal root non-negative).</li>
+</ul>
+
+<h2>6. Radical – Exponent Relationship</h2>
+<p>
+Roots can be written as fractional exponents:
+\[ \sqrt[n]{x}=x^{1/n},\qquad \sqrt[n]{x^m}=x^{m/n}. \]
+Example: $\sqrt[3]{x^4}=x^{4/3}.$
+</p>
+
+<h2>7. Operations with Radicals</h2>
+<ul>
+  <li><b>Product Rule:</b> $\sqrt[n]{a}\sqrt[n]{b}=\sqrt[n]{ab}$ for $a,b≥0$.</li>
+  <li><b>Quotient Rule:</b> $\dfrac{\sqrt[n]{a}}{\sqrt[n]{b}}=\sqrt[n]{\dfrac{a}{b}}$ ($b&gt;0$).</li>
+  <li>Cannot combine radicals with different indices or different radicands.</li>
+</ul>
+
+<h2>8. Simplifying Square Roots</h2>
+<p>
+Break the radicand into perfect square and remainder factors:
+\[ \sqrt{72}=\sqrt{36×2}=\sqrt{36}\sqrt{2}=6\sqrt{2}. \]
+Factor out any perfect squares; the remaining radicand must have no square factor other than 1.
+</p>
+
+<h2>9. Rationalizing Denominators</h2>
+<p>
+A radical expression is in simplified form when no radical remains in the denominator.  
+Multiply by a form of 1 that eliminates the root:
+</p>
+<ul>
+  <li>For a single radical: $\displaystyle \frac{1}{\sqrt{5}}=\frac{\sqrt{5}}{5}$.</li>
+  <li>For a binomial denominator (conjugate method):
+    \[ \frac{1}{3+\sqrt{2}}·\frac{3-\sqrt{2}}{3-\sqrt{2}}
+    =\frac{3-\sqrt{2}}{9-2}=\frac{3-\sqrt{2}}{7}. \]
+  </li>
+</ul>
+
+<h2>10. Estimating Square Roots</h2>
+<p>
+Locate two perfect squares between which the number lies and interpolate.
+Example: $\sqrt{50}$ lies between $\sqrt{49}=7$ and $\sqrt{64}=8$, so ≈ 7.1.
+</p>
+
+<h2>11. Powers and Roots Together</h2>
+<p>
+When both appear, use exponent form and apply the laws of exponents carefully:
+\[ \sqrt[3]{x^5}=x^{5/3},\qquad (\sqrt{x})^3=x^{3/2}. \]
+</p>
+
+<h2>12. Scientific Notation and Powers of 10</h2>
+<p>
+Scientific notation uses exponents to represent very large or small numbers:
+\[ a×10^n,\qquad 1≤a&lt;10. \]
+To convert:
+</p>
+<ul>
+  <li>Move the decimal after the first non-zero digit.</li>
+  <li>Count how many places it moved → that’s $n$.</li>
+  <li>Left → positive $n$; right → negative $n$.</li>
+</ul>
+<p>Example: $53\,000=5.3×10^4,$ $0.00042=4.2×10^{-4}.$</p>
+
+<h2>13. Operating in Scientific Notation</h2>
+<ul>
+  <li><b>Multiplication:</b>
+    \[ (a×10^m)(b×10^n)=(a b)×10^{m+n}. \]
+  </li>
+  <li><b>Division:</b>
+    \[ \frac{a×10^m}{b×10^n}=\frac{a}{b}×10^{m-n}. \]
+  </li>
+  <li>Always renormalize so $1≤a&lt;10$.</li>
+</ul>
+<p>
+Example:
+\[ \dfrac{(2.3×10^{-4})(6.4×10^{12})}{4.2×10^{10}}
+=3.5×10^{-2}. \]
+</p>
+
+<hr />
+<p style="text-align:center;font-size:0.9em;opacity:0.8;">
+<b>End of Part 3 – Next: Measurement and Conversions</b>
+</p>
+
+<h1>Part 4 – Measurement and Conversions</h1>
+
+<h2>1. Concept of Measurement</h2>
+<p>
+A measurement compares a quantity with a standard unit.  
+All measurements have two parts:
+</p>
+<ul>
+  <li>The <b>number</b> – how many of the unit.</li>
+  <li>The <b>unit</b> – what type of quantity (length, mass, volume, time, etc.).</li>
+</ul>
+<p>
+Example: “12 inches” means 12 units of the standard inch.
+</p>
+
+<h2>2. US Customary System (Common Units)</h2>
+
+<h3>Length</h3>
+<ul>
+  <li>1 foot (ft) = 12 inches (in)</li>
+  <li>1 yard (yd) = 3 ft = 36 in</li>
+  <li>1 mile (mi) = 5280 ft = 1760 yd</li>
+</ul>
+
+<h3>Weight</h3>
+<ul>
+  <li>1 pound (lb) = 16 ounces (oz)</li>
+  <li>1 ton = 2000 lb</li>
+</ul>
+
+<h3>Capacity (Volume)</h3>
+<ul>
+  <li>1 cup (c) = 8 fluid ounces (fl oz)</li>
+  <li>1 pint (pt) = 2 cups = 16 fl oz</li>
+  <li>1 quart (qt) = 2 pt = 4 cups</li>
+  <li>1 gallon (gal) = 4 qt = 8 pt = 16 cups</li>
+</ul>
+
+<h3>Time</h3>
+<ul>
+  <li>1 minute = 60 seconds</li>
+  <li>1 hour = 60 minutes</li>
+  <li>1 day = 24 hours</li>
+  <li>1 year ≈ 365 days (366 in a leap year)</li>
+</ul>
+
+<h2>3. Metric System (Base-10 Structure)</h2>
+<p>
+The metric system is decimal-based — each prefix represents a power of 10.  
+The base units are:
+</p>
+<ul>
+  <li>Length → <b>meter (m)</b></li>
+  <li>Mass → <b>gram (g)</b></li>
+  <li>Volume → <b>liter (L)</b></li>
+  <li>Time → <b>second (s)</b></li>
+</ul>
+
+<h3>Metric Prefixes</h3>
+<table style="border-collapse:collapse;width:100%;max-width:550px;">
+  <tr><th align="left">Prefix</th><th align="left">Symbol</th><th align="left">Meaning</th></tr>
+  <tr><td>Kilo</td><td>k</td><td>× 1 000</td></tr>
+  <tr><td>Hecto</td><td>h</td><td>× 100</td></tr>
+  <tr><td>Deka</td><td>da</td><td>× 10</td></tr>
+  <tr><td><b>Base unit</b></td><td>–</td><td>1</td></tr>
+  <tr><td>Deci</td><td>d</td><td>× 0.1 (= 1/10)</td></tr>
+  <tr><td>Centi</td><td>c</td><td>× 0.01 (= 1/100)</td></tr>
+  <tr><td>Milli</td><td>m</td><td>× 0.001 (= 1/1000)</td></tr>
+</table>
+
+<h2>4. Converting Within the Metric System</h2>
+<p>
+Because each step is a factor of ten, move the decimal point:
+</p>
+<ul>
+  <li>To convert <b>larger → smaller</b> units → move decimal right.</li>
+  <li>To convert <b>smaller → larger</b> units → move decimal left.</li>
+</ul>
+<p>
+Example: $4.5$ m = $450$ cm;  $125$ mm = $0.125$ m.
+</p>
+
+<h2>5. Converting Between US and Metric Units</h2>
+<p>
+Common approximate equivalences:
+</p>
+<ul>
+  <li>$1\,\text{inch}=2.54\,\text{cm}$</li>
+  <li>$1\,\text{foot}=0.3048\,\text{m}$</li>
+  <li>$1\,\text{yard}=0.9144\,\text{m}$</li>
+  <li>$1\,\text{mile}=1.609\,\text{km}$</li>
+  <li>$1\,\text{lb}=0.454\,\text{kg}$</li>
+  <li>$1\,\text{kg}=2.205\,\text{lb}$</li>
+  <li>$1\,\text{L}=1.057\,\text{qt}$</li>
+</ul>
+<p>
+To convert, multiply by the correct conversion factor so that units cancel.
+</p>
+
+<h2>6. Dimensional Analysis (Unit Conversion Method)</h2>
+<p>
+Write the quantity as a fraction and multiply by conversion ratios that equal 1 until the desired unit remains:
+</p>
+<p>
+Example: Convert $5\,\text{ft}$ to inches
+\[ 5\,\text{ft}×\frac{12\,\text{in}}{1\,\text{ft}}=60\,\text{in}. \]
+Always keep track of units to ensure cancellations are correct.
+</p>
+
+<h2>7. Temperature Scales</h2>
+<ul>
+  <li><b>Celsius (°C):</b> freezing = 0°, boiling = 100°.</li>
+  <li><b>Fahrenheit (°F):</b> freezing = 32°, boiling = 212°.</li>
+</ul>
+<p>Conversions:</p>
+\[ °F=\frac{9}{5}°C+32,\qquad °C=\frac{5}{9}(°F−32). \]
+
+<h2>8. Area and Volume Conversions</h2>
+<p>
+Units for area and volume scale by powers of 10 or their base conversion factors squared or cubed:
+</p>
+<ul>
+  <li>$1\,\text{ft}^2=(12\,\text{in})^2=144\,\text{in}^2$</li>
+  <li>$1\,\text{yd}^2=9\,\text{ft}^2$</li>
+  <li>$1\,\text{ft}^3=(12\,\text{in})^3=1728\,\text{in}^3$</li>
+  <li>$1\,\text{yd}^3=27\,\text{ft}^3$</li>
+</ul>
+
+<h2>9. Measurement Precision and Significant Figures</h2>
+<p>
+The reliability of a measurement depends on how precisely it was made.  
+The number of <b>significant figures</b> (sig figs) indicates certainty:
+</p>
+<ul>
+  <li>All nonzero digits are significant.</li>
+  <li>Zeros between nonzeros are significant.</li>
+  <li>Leading zeros are not significant.</li>
+  <li>Trailing zeros are significant only if a decimal point is present.</li>
+</ul>
+<p>
+Example: 0.00452 → 3 sig figs;  45.00 → 4 sig figs.
+</p>
+
+<h2>10. Rounding Rules</h2>
+<ul>
+  <li>Identify the rounding place.</li>
+  <li>Look at the digit to its right:
     <ul>
-      <li><b>Sets & symbols:</b> ℕ (natural: 1,2,3,…), 𝕎 (whole: 0,1,2,…), ℤ (integers: …,−2,−1,0,1,2,…), ℚ (rationals = fractions), ℝ∖ℚ (irrationals), ℝ (reals). Hierarchy: ℝ ⊇ (ℚ ∪ (ℝ∖ℚ)) with ℚ ⊇ ℤ ⊇ 𝕎 ⊇ ℕ. Set ops: “∈” (is an element), “∪” (union), “∩” (intersection).</li>
-      <li><b>Identity numbers:</b> Additive identity 0; multiplicative identity 1.</li>
+      <li>≥5 → round up;</li>
+      <li>&lt;5 → leave unchanged.</li>
     </ul>
+  </li>
+</ul>
 
-    <h1>Signed Numbers (Positives/Negatives)</h1>
-    <ul>
-      <li><b>Algebraic subtraction:</b> \(a-b = a+(-b)\).</li>
-      <li><b>Add/Subtract rules:</b> Same signs → add magnitudes, keep sign; different → subtract smaller from larger, keep sign of larger.</li>
-      <li><b>Multiply/Divide rules:</b> Same signs → positive; different → negative.</li>
-    </ul>
+<h2>11. Estimation and Order of Magnitude</h2>
+<p>
+Approximate calculations by rounding numbers to one significant figure to gauge size.  
+For instance, Earth–Sun distance ≈ $1.5×10^8$ km, order of magnitude $10^8$.
+</p>
 
-    <h1>Opposites & Absolute Value</h1>
-    <ul>
-      <li><b>Opposite:</b> Equal distance from 0, opposite signs (e.g., 4 ↔ −4).</li>
-      <li><b>Absolute value:</b> distance from 0: \(|-3-4| = |-7| = 7\).</li>
-    </ul>
-
-    <h1>Divisibility, Multiples, Primes</h1>
-    <ul>
-      <li><b>Divisibility tests:</b> 2 (even), 3 (digit sum ÷3), 4 (last two ÷4), 5 (0 or 5), 6 (÷2 & ÷3), 7 (\(5×\)last digit + rest ÷7), 8 (last three ÷8), 9 (digit sum ÷9), 10 (0).</li>
-      <li><b>Multiples:</b> \(k⋅n\) for integer \(k\); 0 is multiple of all numbers.</li>
-      <li><b>Prime vs Composite:</b> prime = only 1 & itself; composite = other divisors.</li>
-      <li><b>Prime factorization:</b> \(12 = 2^2·3\).</li>
-      <li><b>GCF:</b> min prime powers; <b>LCM:</b> max prime powers.</li>
-    </ul>
-
-    <h1>Fractions</h1>
-    <ul>
-      <li><b>Concept:</b> numerator = parts taken, denominator = parts total. \(76\% = \frac{76}{100}\).</li>
-      <li><b>Equivalent fractions:</b> multiply top & bottom by same number: \(\frac{a}{b} = \frac{ac}{bc}\).</li>
-      <li><b>Reciprocal:</b> \(a^{-1} = \frac{1}{a}\) for \(a≠0\).</li>
-      <li><b>Division by zero:</b> undefined.</li>
-      <li><b>Reduction:</b> cancel common factors, e.g. \(630/945→2/3\).</li>
-      <li><b>Add/Subtract:</b> common denominators → add numerators; else find LCD.</li>
-    </ul>
-
-    <h1>Exponents</h1>
-    <ul>
-      <li>\(x^a·x^b=x^{a+b}\), \((x^a)^b=x^{ab}\), \(\frac{x^a}{x^b}=x^{a-b}\).</li>
-      <li>Negative: \(x^{-n}=1/x^n\).</li>
-      <li>Special: \(1^n=1\).</li>
-    </ul>
-
-    <h1>Radicals</h1>
-    <ul>
-      <li>\((\sqrt{x})^2=x\), \((\sqrt[3]{x})^3=x\).</li>
-      <li>\(\sqrt{m}\sqrt{n}=\sqrt{mn}\) if \(m,n≥0\).</li>
-      <li>“Simplified” → no perfect-square factor inside, no radical in denominator.</li>
-    </ul>
-
-    <h1>Scientific Notation</h1>
-    <ul>
-      <li>\(a×10^n\), \(1≤a&lt;10\).</li>
-      <li>Multiply → add exponents; divide → subtract exponents.</li>
-      <li>Example: \(\frac{(2.3×10^{-4})(6.4×10^{12})}{4.2×10^{10}}≈3.5×10^{-2}\).</li>
-    </ul>
-
-    <h1>Measurement & Conversions</h1>
-    <ul>
-      <li>US: 12 in = 1 ft; 3 ft = 1 yd; 5280 ft = 1 mi; 16 oz = 1 lb.</li>
-      <li>Metric: kilo = ×1000; centi = ÷100; milli = ÷1000.</li>
-    </ul>
-
-    <hr/>
-  </main>
+<hr />
+<p style="text-align:center;font-size:0.9em;opacity:0.8;">
+<b>End of Part 4 – Measurement and Conversions (Pre-Algebra Summary Complete)</b>
+</p>
+</main>
 </body>
 </html>
