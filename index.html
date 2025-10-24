@@ -1,0 +1,70 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+<title>Clickable Boxes</title>
+<style>
+  :root {
+    --bg: #f8f9fb;
+    --box-bg: #ffffff;
+    --accent: #4e79ff;
+    --accent-light: #d6e0ff;
+    --shadow: rgba(0,0,0,0.1);
+  }
+
+  body {
+    font-family: "Poppins", sans-serif;
+    background-color: var(--bg);
+    margin: 0;
+    padding: 0;
+    display: flex;
+    min-height: 100vh;
+    align-items: center;
+    justify-content: center;
+  }
+
+  .container {
+    display: grid;
+    gap: 1.5rem;
+    width: 90%;
+    max-width: 1000px;
+    grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+  }
+
+  .box {
+    background-color: var(--box-bg);
+    border-radius: 1rem;
+    box-shadow: 0 4px 10px var(--shadow);
+    padding: 2rem;
+    text-align: center;
+    font-size: 1.25rem;
+    font-weight: 600;
+    color: var(--accent);
+    cursor: pointer;
+    transition: transform 0.25s ease, box-shadow 0.25s ease;
+  }
+
+  .box:hover {
+    transform: translateY(-5px);
+    box-shadow: 0 8px 18px var(--shadow);
+    background-color: var(--accent-light);
+  }
+
+  @media (max-width: 500px) {
+    .box {
+      font-size: 1rem;
+      padding: 1.5rem;
+    }
+  }
+</style>
+</head>
+<body>
+  <div class="container">
+    <div class="box" onclick="location.href='read_fast.html'">Read Fast</div>
+    <div class="box" onclick="location.href='page2.html'">Page 2</div>
+    <div class="box" onclick="location.href='page3.html'">Page 3</div>
+    <div class="box" onclick="location.href='page4.html'">Page 4</div>
+  </div>
+</body>
+</html>
